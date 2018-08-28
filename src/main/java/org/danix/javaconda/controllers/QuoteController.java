@@ -23,10 +23,17 @@ public class QuoteController {
     }
 
 
-    @ApiOperation(value = "Find a Quote by id")
+    @ApiOperation(value = "Finds a Quote by id")
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public Quote quote(@PathVariable("id")
                        @ApiParam(value = "The id of the quote", example = "23", required = true) final long id) {
         return quoteService.getQuote();
+    }
+
+    @ApiOperation(value = "Finds a Smart Quote by id")
+    @RequestMapping(path = "/{id}/smart", method = RequestMethod.GET)
+    public Quote smartQuote(@PathVariable("id")
+                            @ApiParam(value = "The id of the smart quote", example = "23", required = true) final long id) {
+        return quoteService.getSmartQuote(id);
     }
 }
