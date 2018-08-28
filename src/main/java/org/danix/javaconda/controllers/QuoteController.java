@@ -45,4 +45,11 @@ public class QuoteController {
                                         @PathVariable("id") final long id) {
         return quoteService.getAsyncQuote(id);
     }
+
+    @ApiOperation(value = "Finds a remote Quote by id")
+    @RequestMapping(path = "/{id}/remote", method = RequestMethod.GET)
+    public Quote remoteQuote(@ApiParam(value = "The id of the smart quote", example = "23", required = true)
+                             @PathVariable("id") final long id) {
+        return quoteService.getRemoteQuote(id);
+    }
 }

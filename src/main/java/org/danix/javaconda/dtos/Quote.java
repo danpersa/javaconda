@@ -11,8 +11,8 @@ import static org.immutables.value.Value.Immutable;
 @JsonDeserialize(as = ImmutableQuote.class)
 public interface Quote {
 
-    String name();
+    String type();
 
     @JsonProperty("value")
-    String value();
+    Value value();
 }

@@ -2,14 +2,29 @@ package org.danix.javaconda.services;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import org.danix.javaconda.config.MyConfigProperties;
 import org.danix.javaconda.dtos.ImmutableQuote;
+import org.danix.javaconda.dtos.ImmutableValue;
 import org.danix.javaconda.dtos.Quote;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import rx.Observable;
 
 @Service
 public class QuoteService {
+
+    private final RestTemplate restTemplate;
+
+    private final MyConfigProperties properties;
+
+    @Autowired
+    public QuoteService(final RestTemplate restTemplate,
+                        final MyConfigProperties properties) {
+        this.restTemplate = restTemplate;
+        this.properties = properties;
+    }
 
     @HystrixCommand(
             commandKey = "getQuote",
@@ -22,8 +37,11 @@ public class QuoteService {
     @Cacheable("quote")
     public Quote getQuote() {
         return ImmutableQuote.builder()
-                .name("Quote")
-                .value("This is the quote")
+                .type("Quote")
+                .value(ImmutableValue.builder()
+                        .id(0l)
+                        .quote("This is the quote")
+                        .build())
                 .build();
     }
 
@@ -54,24 +72,36 @@ public class QuoteService {
     public Observable<Quote> getAsyncQuote(long id) {
         return Observable.just(
                 ImmutableQuote.builder()
-                        .name("Async Quote " + id)
-                        .value("This is an async quote")
+                        .type("Async Quote " + id)
+                        .value(ImmutableValue.builder()
+                                .id(0l)
+                                .quote("This is an async quote")
+                                .build())
                         .build());
+    }
+
+    public Quote getRemoteQuote(long id) {
+        return restTemplate.getForObject(properties.getQuoters(), Quote.class);
     }
 
     Quote getFallbackQuote(long id) {
         return ImmutableQuote.builder()
-                .name("Fallback Quote " + id)
-                .value("This is a fallback quote")
+                .type("Fallback Quote " + id)
+                .value(ImmutableValue.builder()
+                        .id(0l)
+                        .quote("This is the fallback quote")
+                        .build())
                 .build();
     }
 
     Observable<Quote> getFallbackAsyncQuote(long id) {
         return Observable.just(
                 ImmutableQuote.builder()
-                        .name("Fallback Async Quote " + id)
-                        .value("This is a fallback async quote")
+                        .type("Fallback Async Quote " + id)
+                        .value(ImmutableValue.builder()
+                                .id(0l)
+                                .quote("This is an async fallback quote")
+                                .build())
                         .build());
-
     }
 }

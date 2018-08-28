@@ -1,15 +1,13 @@
 package org.danix.javaconda;
 
+import org.danix.javaconda.config.AppConfig;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.core.env.AbstractEnvironment;
 
-@SpringBootApplication
-@EnableCaching
 public class JavacondaApplication {
 
     public static void main(String[] args) {
-
-        SpringApplication.run(JavacondaApplication.class, args);
+        System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, "prod");
+        SpringApplication.run(AppConfig.class, args);
     }
 }
