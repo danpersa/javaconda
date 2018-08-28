@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import rx.Observable;
 
 @RestController
 @RequestMapping(value = "/quotes", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -25,15 +26,23 @@ public class QuoteController {
 
     @ApiOperation(value = "Finds a Quote by id")
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public Quote quote(@PathVariable("id")
-                       @ApiParam(value = "The id of the quote", example = "23", required = true) final long id) {
+    public Quote quote(
+            @ApiParam(value = "The id of the quote", example = "23", required = true)
+            @PathVariable("id") final long id) {
         return quoteService.getQuote();
     }
 
     @ApiOperation(value = "Finds a Smart Quote by id")
     @RequestMapping(path = "/{id}/smart", method = RequestMethod.GET)
-    public Quote smartQuote(@PathVariable("id")
-                            @ApiParam(value = "The id of the smart quote", example = "23", required = true) final long id) {
+    public Quote smartQuote(@ApiParam(value = "The id of the smart quote", example = "23", required = true)
+                            @PathVariable("id") final long id) {
         return quoteService.getSmartQuote(id);
+    }
+
+    @ApiOperation(value = "Finds an Async Quote by id")
+    @RequestMapping(path = "/{id}/async", method = RequestMethod.GET)
+    public Observable<Quote> asyncQuote(@ApiParam(value = "The id of the smart quote", example = "23", required = true)
+                                        @PathVariable("id") final long id) {
+        return quoteService.getAsyncQuote(id);
     }
 }
