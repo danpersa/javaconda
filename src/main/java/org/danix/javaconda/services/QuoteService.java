@@ -4,6 +4,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.danix.javaconda.dtos.ImmutableQuote;
 import org.danix.javaconda.dtos.Quote;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import rx.Observable;
 
@@ -18,6 +19,7 @@ public class QuoteService {
                             name = "execution.isolation.thread.timeoutInMilliseconds",
                             value = "50")
             })
+    @Cacheable("quote")
     public Quote getQuote() {
         return ImmutableQuote.builder()
                 .name("Quote")
