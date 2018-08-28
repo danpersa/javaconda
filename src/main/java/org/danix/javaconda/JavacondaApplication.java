@@ -9,6 +9,5 @@ public class JavacondaApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(JavacondaApplication.class, args);
-
     }
 }
