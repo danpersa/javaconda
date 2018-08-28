@@ -1,5 +1,9 @@
 # Javaconda
 
+## Running
+
+    ./gradlew bootRun
+
 ## Swagger
 
  - [Swagger File](http://localhost:8080/v2/api-docs)
@@ -19,10 +23,10 @@ Start the service in dev mode and try:
 After some warm up (a few runs), you might get a result like this:
 
     Running 10s test @ http://localhost:8080/quotes/1
-        4 threads and 50 connections
-        Thread Stats   Avg      Stdev     Max   +/- Stdev
-          Latency     6.69ms    6.01ms 139.57ms   91.02%
-          Req/Sec     1.72k   494.46     3.84k    76.41%
-        68519 requests in 10.07s, 11.97MB read
-    Requests/sec:   6802.43
-    Transfer/sec:      1.19MB
+      4 threads and 50 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency    19.96ms   36.04ms 314.69ms   87.13%
+        Req/Sec     2.28k   509.39     3.75k    72.25%
+      91017 requests in 10.03s, 18.14MB read
+    Requests/sec:   9070.13
+    Transfer/sec:      1.81MB
