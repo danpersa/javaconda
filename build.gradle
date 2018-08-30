@@ -85,6 +85,7 @@ dependencies {
     testRuntime "org.junit.vintage:junit-vintage-engine:$junitVersion"
     // Enable use of the JUnitPlatform Runner within the IDE
     testCompile "org.junit.platform:junit-platform-runner:1.2.0"
+    testCompile 'org.springframework.cloud:spring-cloud-contract-wiremock'
 }
 
 dependencyManagement {

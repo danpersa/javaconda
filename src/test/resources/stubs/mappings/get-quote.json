@@ -1,0 +1,19 @@
+{
+  "request": {
+    "urlPath": "/api/random",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "type": "success",
+      "value": {
+        "id": 5,
+        "quote": "Spring Boot solves this problem."
+      }
+    }
+  }
+}
